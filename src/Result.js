@@ -5,7 +5,8 @@ return (
 	<div className="result" onClick=
 		{() => openDetail(result.imdbID)}>
 	<img src={result.Poster} />
-	<h3>{result.Title}</h3>
+	<h3>{result.Title}, {result.Year}</h3>
+	<h1></h1>
 	</div>
 );
 }
