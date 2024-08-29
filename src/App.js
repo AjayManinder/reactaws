@@ -1,75 +1,30 @@
 import React, { useState } from "react";
-import axios from "axios";
-import Search from "./Search";
-import Results from "./Results";
-import Detail from "./Detail";
+import MovieSearch from "./Components/MovieSearch";
+import Header from "./Components/Header"
+import {Route, Routes,Router} from "react-router-dom"
 import "./App.css";
+import Home from "./Home";
+class App extends React.Component {
+	render() {
+	return(
+		<div className="App">
+        {/* <div className="App-header"> */}
 
-function App() {
-const [state, setState] = useState({
-	s: "sherlock",
-	results: [],
-	selected: {},
-});
 
-const apiurl = "http://www.omdbapi.com/?i=tt3896198&apikey=383903a0";
+<Header/>
+<MovieSearch/>
+          {/* 
+            <Route path="/" element={<Header />} />
+            <Route path="/" element={<MovieSearch />} />
+            // <Route path="/Home" element={<Home />} />
+            
+          </Routes> */}
+     
+      </div>
+      // </div>
 
-const searchInput = (e) => {
-	let s = e.target.value;
-
-	setState((prevState) => {
-	return { ...prevState, s: s };
-	});
-};
-
-const search = (e) => {
-	if (e.key === "Enter") {
-	axios(apiurl + "&s=" + state.s).then(({ data }) => {
-		let results = data.Search;
-
-		console.log(results);
-
-		setState((prevState) => {
-		return { ...prevState, results: results };
-		});
-	});
-	}
-};
-
-const openDetail = (id) => {
-	axios(apiurl + "&i=" + id).then(({ data }) => {
-	let result = data;
-
-	setState((prevState) => {
-		return { ...prevState, selected: result };
-	});
-	});
-};
-
-const closeDetail = () => {
-	setState((prevState) => {
-	return { ...prevState, selected: {} };
-	});
-};
-
-return (
-	<div className="App">
-	<header className="App-header">
-		<h1>Search any word for movie suggestion</h1>
-	</header>
-	<main>
-		<Search searchInput={searchInput} search={search} />
-
-		<Results results={state.results} openDetail={openDetail} />
-
-		{typeof state.selected.Title != "undefined" ? (
-		<Detail selected={state.selected} closeDetail={closeDetail} />
-		) : (
-		false
-		)}
-	</main>
-	</div>
-);
+	);
+}
 }
 
 export default App;
